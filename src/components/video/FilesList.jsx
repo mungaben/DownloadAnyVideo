@@ -6,22 +6,21 @@ import { useState } from 'react'
 const FilesList =() => {
     const [file, setfile] = useState();
     const [title, settitle] = useState();
-    console.log(file);
+    console.log("file",file);
     let form_data=new FormData()
     form_data.append("title",title)
     form_data.append("video",file)
-    let access_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0Nzk5MTk0LCJpYXQiOjE2NzQ3OTg1OTQsImp0aSI6IjI5NjM0YTZiZmZjZTQ1MzdiYzJjMTI3Y2M1MDQ3YjMyIiwidXNlcl9pZCI6MX0.NT1z9LeKBtAkbhk-Y--uD1aAW34K_LfSBKFo8j3QDFA"
+    let access_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0ODA1MjUxLCJpYXQiOjE2NzQ4MDQ2NTEsImp0aSI6ImE3YzQ1NDBkYjM3MzQ5N2RiYTYyODhiMTYxZTgyODI2IiwidXNlcl9pZCI6MX0.Ie1RlzrziljdX9vhw76SGJKFS9xhnahdLlFliVktnZ4"
     const headers={
         'Content-Type': 'multipart/form-data',
-        Authorization:`Bearer ${access_token}`,
+        'Authorization':`Bearer ${access_token}`,
 
     }
     
     const handle_data=()=>{
-        const data= axios.post("http://127.0.0.1:8000/video/post/",{
-            Title:title,
-            video:file,
-        },
+        console.log("my file",file);
+        const data= axios.post("http://127.0.0.1:8000/video/post/",form_data,
+         
         {  
          
            headers:headers
@@ -61,6 +60,7 @@ const FilesList =() => {
         let title =e.target.Title.value
         let file=e.target.file.value
         console.log(e.target.file);
+        handle_data()
        
        
         
@@ -71,11 +71,11 @@ const FilesList =() => {
         settitle(data)
     }
     const onfile=(e)=>{
-        let data=e.target.value
-        console.log(data);
+        let data=e.target.files[0]
+        console.log("file data",data);
         setfile(data)
     }
-    handle_data()
+    // handle_data()
   
   return (
     <div className=' flex-col flex'>
@@ -83,7 +83,7 @@ const FilesList =() => {
         <label htmlFor="titlevid">Title</label>
         <input type="text" name="Title" id="titlevid" onChange={ontitle} />
         <label htmlFor="filevid">file</label>
-        <input type="file" name="file" id="filevid"  />
+        <input type="file" name="file" id="filevid" accept='*' onChange={onfile}  />
         <button type="submit">submit</button>
       </form>
     </div>
