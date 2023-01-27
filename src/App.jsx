@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Accounts from "./pages/Accounts.jsx";
 import Home from "./pages/Home";
 import NavBar from "./pages/NavBar";
+import FilesList from "./components/video/FilesList";
 function App() {
   // const [count, setCount] = useState(0)
 
@@ -14,10 +15,12 @@ function App() {
       <Router>
         <NavBar />
         <Routes>
+
           {/* <Route path="/account" element={<Accounts />} /> */}
           {/* <Route path="/" element={<Home />} /> */}
           {/* <Route path="/login" element={<Login />} /> */}
-          {/* <Route path="/hello" element={<Listdata />} /> */}
+          <Route path="/account" element={<FilesList/>} />
+          
           
         </Routes>
       </Router>
