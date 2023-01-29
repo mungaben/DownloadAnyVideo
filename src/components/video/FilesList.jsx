@@ -6,11 +6,16 @@ import { useState } from 'react'
 const FilesList =() => {
     const [file, setfile] = useState();
     const [title, settitle] = useState();
+    const [data, setdata] = useState();
     console.log("file",file);
     let form_data=new FormData()
     form_data.append("title",title)
     form_data.append("video",file)
-    let access_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0ODA1MjUxLCJpYXQiOjE2NzQ4MDQ2NTEsImp0aSI6ImE3YzQ1NDBkYjM3MzQ5N2RiYTYyODhiMTYxZTgyODI2IiwidXNlcl9pZCI6MX0.Ie1RlzrziljdX9vhw76SGJKFS9xhnahdLlFliVktnZ4"
+    // let access_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc0ODQ1NTA5LCJpYXQiOjE2NzQ4NDQ5MDksImp0aSI6IjM3MjVjZWVkNzEzOTRjZmRiYmY0M2Y3ZmY3YWI5NDIzIiwidXNlcl9pZCI6MX0.cfu912l_l5VKDH72B1GpT_H8vikHrHoQ3TCDjDyWpWE"
+    let token=JSON.parse(localStorage.getItem('data'))
+    setdata(token)
+    let access_token=data.access
+
     const headers={
         'Content-Type': 'multipart/form-data',
         'Authorization':`Bearer ${access_token}`,
@@ -38,6 +43,7 @@ const FilesList =() => {
 
         
     }
+
     const post_file =()=>{
         const post_data=axios.post("http://127.0.0.1:8000/video/post/",
         {
